@@ -1,0 +1,57 @@
+{
+  "name": "jsplumbtoolkit-vue-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "jsPlumb <hello@jsplumbtoolkit.com> (https://jsplumbtoolkit.com)",
+  "license": "Commercial",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build;cp -R ./data ./dist",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "jsplumbtoolkit": "file:./jsplumbtoolkit.tgz",
+    "jsplumbtoolkit-vue2": "file:./jsplumbtoolkit-vue2.tgz",
+    "jsplumbtoolkit-drop": "file:./jsplumbtoolkit-drop.tgz",
+    "jsplumbtoolkit-vue2-drop": "file:./jsplumbtoolkit-vue2-drop.tgz",
+    "jsplumbtoolkit-undo-redo": "file:./jsplumbtoolkit-undo-redo.tgz",
+    "jsplumbtoolkit-syntax-highlighter": "file:./jsplumbtoolkit-syntax-highlighter.tgz",
+    "jsplumbtoolkit-demo-support": "file:./jsplumbtoolkit-demo-support.tgz",
+    "jsplumbtoolkit-editable-connectors": "file:./jsplumbtoolkit-editable-connectors.tgz",
+    "vue": "2.5.17"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "3.1.1",
+    "@vue/cli-plugin-eslint": "3.1.5",
+    "@vue/cli-service": "3.1.4",
+    "babel-eslint": "10.0.1",
+    "eslint": "5.8.0",
+    "eslint-plugin-vue": "^5.0.0-0",
+    "vue-template-compiler": "2.5.17"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
