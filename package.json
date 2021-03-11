@@ -16,8 +16,6 @@
     "jsplumbtoolkit-drop": "file:./jsplumbtoolkit-drop.tgz",
     "jsplumbtoolkit-vue2-drop": "file:./jsplumbtoolkit-vue2-drop.tgz",
     "jsplumbtoolkit-undo-redo": "file:./jsplumbtoolkit-undo-redo.tgz",
-    "jsplumbtoolkit-syntax-highlighter": "file:./jsplumbtoolkit-syntax-highlighter.tgz",
-    "jsplumbtoolkit-demo-support": "file:./jsplumbtoolkit-demo-support.tgz",
     "jsplumbtoolkit-editable-connectors": "file:./jsplumbtoolkit-editable-connectors.tgz",
     "vue": "2.5.17"
   },
