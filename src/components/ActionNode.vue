@@ -7,8 +7,8 @@
                 <text text-anchor="middle" :x="obj.w/2" :y="obj.h/2" dominant-baseline="central">{{obj.text}}</text>
             </svg>
 
-            <div class="node-edit node-action" v-on:click="edit()"></div>
-            <div class="node-delete node-action delete" v-on:click="maybeDelete()"></div>
+            <div class="node-edit node-action" v-on:click="edit"></div>
+            <div class="node-delete node-action delete" v-on:click="maybeDelete"></div>
 
         </div>
 

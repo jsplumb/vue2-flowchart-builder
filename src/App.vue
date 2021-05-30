@@ -34,11 +34,19 @@
   </div>
 </template>
 
+<style>
+  @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
+  @import "../node_modules/@jsplumbtoolkit/dialogs/css/jsplumbtoolkit-dialogs.css";
+  @import "../node_modules/@jsplumb/toolkit-demo-support/jsplumbtoolkit-demo-support.css";
+  @import "../node_modules/@jsplumbtoolkit/connector-editors/css/jsplumbtoolkit-connector-editors.css";
+  @import "./assets/css/app.css";
+
+</style>
+
 <script>
 
-  import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
-// eslint-disable-next-line
-  import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
+  import  { ready } from "@jsplumbtoolkit/browser-ui"
+  import { uuid } from "@jsplumbtoolkit/core"
 
   import Flowchart from './components/Flowchart.vue'
   import Palette from './components/Palette.vue'
@@ -55,15 +63,15 @@ export default {
                 type:el.getAttribute("data-node-type"),
                 w:120,
                 h:80,
-                id:jsPlumbUtil.uuid()
+                id:uuid()
             };
         }
     },
     mounted:function() {
-        jsPlumbToolkit.ready(() => {
-            Dialogs.initialize({
-                selector: ".dlg"
-            });
+        ready(() => {
+            // Dialogs.newInstance({
+            //     selector: ".dlg"
+            // });
         });
     }
 }

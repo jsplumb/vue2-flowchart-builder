@@ -11,15 +11,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@jsplumbtoolkit/core": "file:./jsplumbtoolkit-core.tgz",
-    "@jsplumbtoolkit/browser-ui": "file:./jsplumbtoolkit-browser-ui.tgz",
-    "@jsplumbtoolkit/vue2": "file:./jsplumbtoolkit-vue2.tgz",
-    "@jsplumbtoolkit/drop": "file:./jsplumbtoolkit-drop.tgz",
-    "@jsplumbtoolkit/vue2-drop": "file:./jsplumbtoolkit-vue2-drop.tgz",
-    "@jsplumbtoolkit/undo-redo": "file:./jsplumbtoolkit-undo-redo.tgz",
     "@jsplumb/json-syntax-highlighter": "^1.0.2",
     "@jsplumb/toolkit-demo-support": "^1.0.0",
-    "@jsplumbtoolkit/connector-editors": "file:./jsplumbtoolkit-connector-editors.tgz",
+    "@jsplumbtoolkit/browser-ui": "file:../../alternate-toolkit/dist/browser-ui/jsplumbtoolkit-browser-ui.tgz",
+    "@jsplumbtoolkit/connector-editors": "file:../../alternate-toolkit/dist/connector-editors/jsplumbtoolkit-connector-editors.tgz",
+    "@jsplumbtoolkit/core": "file:../../alternate-toolkit/dist/core/jsplumbtoolkit-core.tgz",
+    "@jsplumbtoolkit/drop": "file:../../alternate-toolkit/dist/drop/jsplumbtoolkit-drop.tgz",
+    "@jsplumbtoolkit/undo-redo": "file:../../alternate-toolkit/dist/undo-redo/jsplumbtoolkit-undo-redo.tgz",
+    "@jsplumbtoolkit/vue2": "file:../../alternate-toolkit/dist/vue2/jsplumbtoolkit-vue2.tgz",
+    "@jsplumbtoolkit/vue2-drop": "file:../../alternate-toolkit/dist/vue2-drop/jsplumbtoolkit-vue2-drop.tgz",
+    "@jsplumbtoolkit/dialogs": "file:../../alternate-toolkit/dist/dialogs/jsplumbtoolkit-dialogs.tgz",
     "vue": "2.5.17"
   },
   "devDependencies": {
