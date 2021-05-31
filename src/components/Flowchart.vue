@@ -9,9 +9,20 @@
 
 import * as Dialogs from "@jsplumbtoolkit/dialogs"
 import { getSurface } from '@jsplumbtoolkit/vue2'
-import { uuid, SpringLayout } from "@jsplumbtoolkit/core"
-import { LassoPlugin, DrawingToolsPlugin, ready } from "@jsplumbtoolkit/browser-ui"
+import { uuid } from "@jsplumb/util"
+import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
+import { ready } from "@jsplumbtoolkit/browser-ui"
+
+import { LassoPlugin } from "@jsplumbtoolkit/plugin-lasso"
+import { DrawingToolsPlugin } from "@jsplumbtoolkit/plugin-drawing-tools"
+
+//
+// when not using Typescript, and not accessing something inside these modules, it is necessary to import them like this
+// in order for them to register themselves with the Toolkit
+//
 import * as ConnectorEditors from "@jsplumbtoolkit/connector-editors"
+import * as OrthogonalConnector from "@jsplumbtoolkit/connector-orthogonal"
+import * as OrthogonalConnectorEditors from "@jsplumbtoolkit/connector-editors-orthogonal"
 
 import StartNode from './StartNode.vue'
 import ActionNode from './ActionNode.vue'
