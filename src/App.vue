@@ -45,8 +45,7 @@
 
 <script>
 
-  import  { ready } from "@jsplumbtoolkit/browser-ui"
-  import { uuid } from "@jsplumbtoolkit/core"
+  import { uuid } from "@jsplumb/util"
 
   import Flowchart from './components/Flowchart.vue'
   import Palette from './components/Palette.vue'
@@ -66,13 +65,6 @@ export default {
                 id:uuid()
             };
         }
-    },
-    mounted:function() {
-        ready(() => {
-            // Dialogs.newInstance({
-            //     selector: ".dlg"
-            // });
-        });
     }
 }
 </script>
