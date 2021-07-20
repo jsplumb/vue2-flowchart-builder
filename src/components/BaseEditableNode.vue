@@ -1,6 +1,6 @@
 <script>
 
-   import { BaseNodeComponent } from '@jsplumbtoolkit/vue2'
+   import { BaseNodeComponent } from '@jsplumbtoolkit/browser-ui-vue2'
    import { consume } from "@jsplumbtoolkit/browser-ui"
 
     export default {

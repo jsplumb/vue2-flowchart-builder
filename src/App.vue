@@ -45,7 +45,7 @@
 
 <script>
 
-  import { uuid } from "@jsplumb/util"
+  import { uuid } from "@jsplumbtoolkit/core"
 
   import Flowchart from './components/Flowchart.vue'
   import Palette from './components/Palette.vue'

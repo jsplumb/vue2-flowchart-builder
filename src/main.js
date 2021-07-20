@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { JsPlumbToolkitVue2Plugin } from '@jsplumbtoolkit/vue2'
+import { JsPlumbToolkitVue2Plugin } from '@jsplumbtoolkit/browser-ui-vue2'
 
 Vue.config.productionTip = false
 

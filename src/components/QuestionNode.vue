@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}" class="flowchart-object flowchart-action">
+    <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}" class="flowchart-object flowchart-action" data-jtk-target="true">
         <div style="position:relative">
 
             <svg :width="obj.w" :height="obj.h">
@@ -10,9 +10,7 @@
             <div class="node-delete node-action delete" v-on:click="maybeDelete"></div>
 
         </div>
-        <div class="drag-start connect"></div>
-        <jtk-target port-type="target" v-pre/>
-        <jtk-source port-type="source" filter=".connect" v-pre/>
+        <div class="drag-start connect" data-jtk-source="true"></div>
     </div>
 </template>
 

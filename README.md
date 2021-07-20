@@ -17,8 +17,7 @@ This file was created for us by the CLI, to which we then added these entries:
     "dependencies":{
         ...
         "jsplumbtoolkit": "file:./jsplumbtoolkit.tgz",  
-        "jsplumbtoolkit-vue2": "file:./jsplumbtoolkit-vue2.tgz",
-        "jsplumbtoolkit-undo-redo": "file:./jsplumbtoolkit-undo-redo.tgz"
+        "jsplumbtoolkit-vue2": "file:./jsplumbtoolkit-vue2.tgz"
         ...
     }
 }
@@ -694,7 +693,6 @@ The buttons in the top left of the screen are handled by the component defined i
 <script>
 
     import { jsPlumbToolkitVue2 } from "jsplumbtoolkit-vue2";
-    import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
     
     let undoManager;
     let container;

@@ -7,8 +7,7 @@
             </svg>
 
         </div>
-        <div class="drag-start connect"></div>
-        <jtk-source port-type="start" filter=".connect" filter-negate="true" v-pre/>
+        <div class="drag-start connect" data-jtk-source="true"></div>
     </div>
 </template>
 

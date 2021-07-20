@@ -11,11 +11,10 @@
 
 <script>
 
-    import { getSurface } from "@jsplumbtoolkit/vue2";
-    import * as jsPlumbToolkitUndoRedo  from "@jsplumbtoolkit/undo-redo";
+    import { getSurface } from "@jsplumbtoolkit/browser-ui-vue2";
     import { EVENT_CANVAS_CLICK } from "@jsplumbtoolkit/browser-ui"
-    
-    let undoManager;
+    import { EVENT_UNDOREDO_UPDATE } from "@jsplumbtoolkit/core"
+
     let container;
     let surfaceId;
 
@@ -29,21 +28,19 @@
         props:["surfaceId"],
         methods:{
             panMode:function() {
-                _getSurface((s) => s.setMode("pan"));
+                _getSurface((s) => s.setMode("pan"))
             },
             selectMode:function() {
-                // eslint-disable-next-line
-                debugger;
-                _getSurface((s) => s.setMode("select"));
+                _getSurface((s) => s.setMode("select"))
             },
             zoomToFit:function() {
                 _getSurface((s) => s.zoomToFit());
             },
             undo:function() {
-                undoManager.undo();
+                _getSurface((s) => s.toolkitInstance.undo())
             },
             redo:function() {
-                undoManager.redo();
+                _getSurface((s) => s.toolkitInstance.redo())
             },
             clear: function() {
                 _getSurface((s) => {
@@ -60,14 +57,10 @@
             container = this.$refs.container;
             _getSurface((surface) => {
 
-                undoManager = jsPlumbToolkitUndoRedo.newInstance({
-                    surface:surface,
-                    compound:true,
-                    onChange:(mgr, undoSize, redoSize) => {
-                        container.setAttribute("can-undo", undoSize > 0);
-                        container.setAttribute("can-redo", redoSize > 0);
-                    }
-                });
+                surface.toolkitInstance.bind(EVENT_UNDOREDO_UPDATE, (state) => {
+                    container.setAttribute("can-undo", state.undoCount > 0 ? "true" : "false")
+                    container.setAttribute("can-redo", state.redoCount > 0 ? "true" : "false")
+                })
 
                 surface.bind(EVENT_CANVAS_CLICK, () => {
                     surface.toolkitInstance.clearSelection();

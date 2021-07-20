@@ -8,13 +8,12 @@
 <script>
 
 import * as Dialogs from "@jsplumbtoolkit/dialogs"
-import { getSurface } from '@jsplumbtoolkit/vue2'
-import { uuid } from "@jsplumb/util"
+import { getSurface } from '@jsplumbtoolkit/browser-ui-vue2'
+import { uuid } from "@jsplumbtoolkit/core"
 import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
-import { ready } from "@jsplumbtoolkit/browser-ui"
 
-import { LassoPlugin } from "@jsplumbtoolkit/plugin-lasso"
-import { DrawingToolsPlugin } from "@jsplumbtoolkit/plugin-drawing-tools"
+import { LassoPlugin } from "@jsplumbtoolkit/browser-ui-plugin-lasso"
+import { DrawingToolsPlugin } from "@jsplumbtoolkit/browser-ui-plugin-drawing-tools"
 
 //
 // when not using Typescript, and not accessing something inside these modules, it is necessary to import them like this
@@ -35,15 +34,16 @@ let surface
 let dialogs
 let edgeEditor
 
-function editEdge(params) {
+function showEdgeEditDialog(data, continueFunction, abortFunction) {
     dialogs.show({
         id: "dlgText",
         data: {
-            text: params.edge.data.label || ""
+            text: data.label || ""
         },
         onOK: function (data) {
-            toolkit.updateEdge(params.edge, {label:data.text});
-        }
+            continueFunction({label:data.text || ""})
+        },
+        onCancel:abortFunction
     });
 }
 
@@ -70,6 +70,11 @@ function nodeFactory(type, data, callback)  {
     });
 }
 
+function edgeFactory(type, data, continueCallback, abortCallback) {
+    showEdgeEditDialog(data, continueCallback, abortCallback)
+    return true
+}
+
 export default {
 
     name: 'jsp-toolkit',
@@ -78,6 +83,7 @@ export default {
         return {
             toolkitParams:{
                 nodeFactory:nodeFactory,
+                edgeFactory:edgeFactory,
                 beforeStartConnect:function(node) {
                     // limit edges from start node to 1. if any other type of node, return
                     return (node.data.type === "start" && node.getEdges().length > 0) ? false : { label:"..." };
@@ -93,24 +99,24 @@ export default {
                         surface.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
                         surface.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
                     },
-                    edgeAdded:(params) => {
-                        if (params.addedByMouse) {
-                            editEdge(params);
-                        }
-                    },
                     canvasClick:() => {
                         toolkit.clearSelection();
                         edgeEditor.stopEditing();
                     }
                 },
-                lassoInvert:true,
                 consumeRightClick: false,
                 dragOptions: {
                     filter: ".jtk-draw-handle, .node-action, .node-action i"
                 },
                 zoomToFit:true,
                 plugins: [
-                    DrawingToolsPlugin.type, LassoPlugin.type
+                    DrawingToolsPlugin.type,
+                    {
+                        type:LassoPlugin.type,
+                        options:{
+                            invert:true
+                        }
+                    }
                 ]
             },
             view:{
@@ -120,7 +126,7 @@ export default {
                     },
                     "selectable": {
                         events: {
-                            click: (params) => {
+                            tap: (params) => {
                                 params.toolkit.toggleSelection(params.obj)
                             }
                         }
@@ -167,7 +173,7 @@ export default {
                             { type:"Arrow", options:{ location: 1, width: 10, length: 10 } }
                         ]
                     },
-                    "connection":{
+                    "response":{
                         parent:"default",
                         overlays:[
                             {
@@ -175,7 +181,11 @@ export default {
                                 options: {
                                     label: "${label}",
                                     events: {
-                                        click: editEdge
+                                        click: (p) => {
+                                            showEdgeEditDialog(p.edge.data, (data) => {
+                                                toolkit.updateEdge(p.edge, data);
+                                            }, () => null)
+                                        }
                                     }
                                 }
                             }
@@ -189,14 +199,11 @@ export default {
                     },
                     "source": {
                         maxConnections: -1,
-                        edgeType: "connection"
+                        edgeType: "response"
                     },
                     "target": {
                         maxConnections: -1,
-                        isTarget: true,
-                        dropOptions: {
-                            hoverClass: "connection-drop"
-                        }
+                        isTarget: true
                     }
                 }
             }
@@ -236,17 +243,32 @@ export default {
         toolkitComponent = this.$refs.toolkitComponent;
         toolkit = toolkitComponent.toolkit;
 
-        // load dialogs when DOM ready; they are imported from an external file
-        ready(() => {
-            dialogs = Dialogs.newInstance({
-                selector: ".dlg"
-            });
-        })
+        dialogs = Dialogs.newInstance({
+            dialogs: {
+                "dlgText":[
+                    '<input type="text" size="50" jtk-focus jtk-att="text" value="${text}" jtk-commit="true"/>',
+                    'Enter Text',
+                    true
+
+                ],
+                "dlgConfirm":[
+                    '${msg}',
+                    'Please Confirm',
+                    true
+                ],
+                "dlgMessage":[
+                    '${msg}',
+                    "Message",
+                    false
+                ]
+            }
+        });
 
         getSurface(this.surfaceId, (s) => {
             surface = s;
             edgeEditor = ConnectorEditors.newInstance(s)
         });
+
     }
 
 }
