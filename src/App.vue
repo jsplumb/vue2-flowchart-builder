@@ -37,7 +37,7 @@
 <style>
   @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit.css";
   @import "../node_modules/@jsplumbtoolkit/dialogs/css/jsplumbtoolkit-dialogs.css";
-  @import "../node_modules/@jsplumb/toolkit-demo-support/jsplumbtoolkit-demo-support.css";
+  @import "../node_modules/@jsplumbtoolkit/browser-ui/css/jsplumbtoolkit-demo-support.css";
   @import "../node_modules/@jsplumbtoolkit/connector-editors/css/jsplumbtoolkit-connector-editors.css";
   @import "./assets/css/app.css";
 
