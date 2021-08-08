@@ -7,19 +7,18 @@
   "license": "Commercial",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build;cp -R ./data ./dist",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@jsplumbtoolkit/browser-ui-plugin-drawing-tools": "^5.0.0-RC12",
-    "@jsplumbtoolkit/browser-ui-plugin-lasso": "^5.0.0-RC12",
-    "@jsplumbtoolkit/browser-ui-plugin-miniview": "^5.0.0-RC12",
-    "@jsplumbtoolkit/browser-ui-vue2": "^5.0.0-RC12",
-    "@jsplumbtoolkit/browser-ui-vue2-drop": "^5.0.0-RC12",
-    "@jsplumbtoolkit/connector-editors-orthogonal": "^5.0.0-RC12",
-    "@jsplumbtoolkit/dialogs": "^5.0.0-RC1",
-    "@jsplumbtoolkit/drop": "^5.0.0-RC1",
-    "@jsplumbtoolkit/layout-spring": "^5.0.0-RC1",
+    "@jsplumbtoolkit/browser-ui-plugin-drawing-tools": "^5.0.0-RC13",
+    "@jsplumbtoolkit/browser-ui-plugin-lasso": "^5.0.0-RC13",
+    "@jsplumbtoolkit/browser-ui-plugin-miniview": "^5.0.0-RC13",
+    "@jsplumbtoolkit/browser-ui-vue2": "^5.0.0-RC13",
+    "@jsplumbtoolkit/browser-ui-vue2-drop": "^5.0.0-RC13",
+    "@jsplumbtoolkit/connector-editors-orthogonal": "^5.0.0-RC13",
+    "@jsplumbtoolkit/dialogs": "^5.0.0-RC13",
+    "@jsplumbtoolkit/layout-spring": "^5.0.0-RC13",
     "vue": "2.5.17"
   },
   "devDependencies": {
