@@ -10,7 +10,7 @@
             <div class="node-delete node-action delete" v-on:click="maybeDelete"></div>
 
         </div>
-        <div class="drag-start connect" data-jtk-source="true"></div>
+        <div class="drag-start connect" data-jtk-source="true"data-jtk-port-type="source"></div>
     </div>
 </template>
 

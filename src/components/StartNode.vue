@@ -7,7 +7,7 @@
             </svg>
 
         </div>
-        <div class="drag-start connect" data-jtk-source="true"></div>
+        <div class="drag-start connect" data-jtk-source="true" data-jtk-port-type="start"></div>
     </div>
 </template>
 
