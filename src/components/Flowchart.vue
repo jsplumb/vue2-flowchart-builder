@@ -117,7 +117,16 @@ export default {
                             invert:true
                         }
                     }
-                ]
+                ],
+                grid:{
+                    size:{
+                        w:20,
+                        h:20
+                    }
+                },
+                magnetize:{
+                    afterDrag:true
+                }
             },
             view:{
                 nodes: {

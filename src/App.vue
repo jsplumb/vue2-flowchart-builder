@@ -60,8 +60,8 @@ export default {
         dataGenerator:function(el) {
             return {
                 type:el.getAttribute("data-node-type"),
-                w:120,
-                h:80,
+                w:el.getAttribute("data-width"),
+                h:el.getAttribute("data-height"),
                 id:uuid()
             };
         }
