@@ -11,40 +11,40 @@
 
 <script>
 
-    import { jsPlumbToolkitVue2 } from "jsplumbtoolkit-vue2";
-    import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
-    
-    let undoManager;
+    import { getSurface } from "@jsplumbtoolkit/browser-ui-vue2";
+    import { EVENT_CANVAS_CLICK } from "@jsplumbtoolkit/browser-ui"
+    import { EVENT_UNDOREDO_UPDATE } from "@jsplumbtoolkit/core"
+
     let container;
     let surfaceId;
 
     // a wrapper around getSurface, which expects a callback, as the surface may or may not have been
     // initialised when calls are made to it.
-    function getSurface(cb) {
-        jsPlumbToolkitVue2.getSurface(surfaceId, cb);
+    function _getSurface(cb) {
+        getSurface(surfaceId, cb)
     }
 
     export default {
         props:["surfaceId"],
         methods:{
             panMode:function() {
-                getSurface((s) => s.setMode("pan"));
+                _getSurface((s) => s.setMode("pan"))
             },
             selectMode:function() {
-                getSurface((s) => s.setMode("select"));
+                _getSurface((s) => s.setMode("select"))
             },
             zoomToFit:function() {
-                getSurface((s) => s.zoomToFit());
+                _getSurface((s) => s.zoomToFit());
             },
             undo:function() {
-                undoManager.undo();
+                _getSurface((s) => s.toolkitInstance.undo())
             },
             redo:function() {
-                undoManager.redo();
+                _getSurface((s) => s.toolkitInstance.redo())
             },
             clear: function() {
-                getSurface((s) => {
-                    const t = s.getToolkit();
+                _getSurface((s) => {
+                    const t = s.toolkitInstance;
                     if (t.getNodeCount() === 0 || confirm("Clear canvas?")) {
                         t.clear();
                     }
@@ -53,23 +53,17 @@
         },
         mounted:function() {
 
-           // debugger
-
             surfaceId = this.surfaceId;
             container = this.$refs.container;
-            getSurface((surface) => {
+            _getSurface((surface) => {
 
-                undoManager = new jsPlumbToolkitUndoRedo({
-                    surface:surface,
-                    compound:true,
-                    onChange:(mgr, undoSize, redoSize) => {
-                        container.setAttribute("can-undo", undoSize > 0);
-                        container.setAttribute("can-redo", redoSize > 0);
-                    }
-                });
+                surface.toolkitInstance.bind(EVENT_UNDOREDO_UPDATE, (state) => {
+                    container.setAttribute("can-undo", state.undoCount > 0 ? "true" : "false")
+                    container.setAttribute("can-redo", state.redoCount > 0 ? "true" : "false")
+                })
 
-                surface.bind("canvasClick", () => {
-                    surface.getToolkit().clearSelection();
+                surface.bind(EVENT_CANVAS_CLICK, () => {
+                    surface.toolkitInstance.clearSelection();
                 });
             });
         }

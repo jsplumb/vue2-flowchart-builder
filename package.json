@@ -1,22 +1,24 @@
 {
-  "name": "jsplumbtoolkit-vue-demo",
-  "version": "1.0.0",
+  "name": "jsplumbtoolkit-vue2-flowchart-builder",
+  "version": "5.0.0",
   "description": "",
   "main": "index.js",
   "author": "jsPlumb <hello@jsplumbtoolkit.com> (https://jsplumbtoolkit.com)",
   "license": "Commercial",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build;cp -R ./data ./dist",
+    "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "jsplumbtoolkit": "file:./jsplumbtoolkit.tgz",
-    "jsplumbtoolkit-vue2": "file:./jsplumbtoolkit-vue2.tgz",
-    "jsplumbtoolkit-drop": "file:./jsplumbtoolkit-drop.tgz",
-    "jsplumbtoolkit-vue2-drop": "file:./jsplumbtoolkit-vue2-drop.tgz",
-    "jsplumbtoolkit-undo-redo": "file:./jsplumbtoolkit-undo-redo.tgz",
-    "jsplumbtoolkit-editable-connectors": "file:./jsplumbtoolkit-editable-connectors.tgz",
+    "@jsplumbtoolkit/browser-ui-plugin-drawing-tools": "^5.0.0",
+    "@jsplumbtoolkit/browser-ui-plugin-lasso": "^5.0.0",
+    "@jsplumbtoolkit/browser-ui-plugin-miniview": "^5.0.0",
+    "@jsplumbtoolkit/browser-ui-vue2": "^5.0.0",
+    "@jsplumbtoolkit/browser-ui-vue2-drop": "^5.0.0",
+    "@jsplumbtoolkit/connector-editors-orthogonal": "^5.0.0",
+    "@jsplumbtoolkit/dialogs": "^5.0.0",
+    "@jsplumbtoolkit/layout-spring": "^5.0.0",
     "vue": "2.5.17"
   },
   "devDependencies": {

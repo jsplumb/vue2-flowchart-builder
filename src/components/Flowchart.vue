@@ -7,32 +7,48 @@
 
 <script>
 
-import { jsPlumb, Dialogs, DrawingTools, jsPlumbUtil } from 'jsplumbtoolkit'
-import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
+import * as Dialogs from "@jsplumbtoolkit/dialogs"
+import { getSurface } from '@jsplumbtoolkit/browser-ui-vue2'
+import { uuid } from "@jsplumbtoolkit/core"
+import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
+
+import { LassoPlugin } from "@jsplumbtoolkit/browser-ui-plugin-lasso"
+import { DrawingToolsPlugin } from "@jsplumbtoolkit/browser-ui-plugin-drawing-tools"
+
+//
+// when not using Typescript, and not accessing something inside these modules, it is necessary to import them like this
+// in order for them to register themselves with the Toolkit
+//
+import * as ConnectorEditors from "@jsplumbtoolkit/connector-editors"
+import * as OrthogonalConnector from "@jsplumbtoolkit/connector-orthogonal"
+import * as OrthogonalConnectorEditors from "@jsplumbtoolkit/connector-editors-orthogonal"
 
 import StartNode from './StartNode.vue'
 import ActionNode from './ActionNode.vue'
 import QuestionNode from './QuestionNode.vue'
 import OutputNode from './OutputNode.vue'
 
-let toolkitComponent;
-let toolkit;
-let surface;
+let toolkitComponent
+let toolkit
+let surface
+let dialogs
+let edgeEditor
 
-function editEdge(params) {
-    Dialogs.show({
+function showEdgeEditDialog(data, continueFunction, abortFunction) {
+    dialogs.show({
         id: "dlgText",
         data: {
-            text: params.edge.data.label || ""
+            text: data.label || ""
         },
         onOK: function (data) {
-            toolkit.updateEdge(params.edge, {label:data.text});
-        }
+            continueFunction({label:data.text || ""})
+        },
+        onCancel:abortFunction
     });
 }
 
 function nodeFactory(type, data, callback)  {
-    Dialogs.show({
+    dialogs.show({
         id: "dlgText",
         title: "Enter " + type + " name:",
         onOK: function (d) {
@@ -42,7 +58,7 @@ function nodeFactory(type, data, callback)  {
                 // and it was at least 2 chars
                 if (data.text.length >= 2) {
                     // set an id and continue.
-                    data.id = jsPlumbUtil.uuid();
+                    data.id = uuid();
                     callback(data);
                 }
                 else
@@ -54,6 +70,11 @@ function nodeFactory(type, data, callback)  {
     });
 }
 
+function edgeFactory(type, data, continueCallback, abortCallback) {
+    showEdgeEditDialog(data, continueCallback, abortCallback)
+    return true
+}
+
 export default {
 
     name: 'jsp-toolkit',
@@ -62,41 +83,50 @@ export default {
         return {
             toolkitParams:{
                 nodeFactory:nodeFactory,
-                // eslint-disable-next-line
-                beforeStartConnect:function(node, edgeType) {
+                edgeFactory:edgeFactory,
+                beforeStartConnect:function(node) {
                     // limit edges from start node to 1. if any other type of node, return
                     return (node.data.type === "start" && node.getEdges().length > 0) ? false : { label:"..." };
                 }
             },
             renderParams:{
-              layout:{
-                  type:"Spring"
-              },
-              jsPlumb:{
-                  Connector:"StateMachine",
-                  Endpoint:"Blank"
-              },
-              events:{
-                  modeChanged:function (mode) {
-                      let controls = document.querySelector(".controls");
-                      jsPlumb.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
-                      jsPlumb.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
-                  },
-                  edgeAdded:(params) => {
-                      if (params.addedByMouse) {
-                          editEdge(params);
-                      }
-                  },
-                  canvasClick:() => {
-                      surface.stopEditing();
-                  }
-              },
-              lassoInvert:true,
-              consumeRightClick: false,
-              dragOptions: {
-                  filter: ".jtk-draw-handle, .node-action, .node-action i"
-              },
-              zoomToFit:true
+                layout:{
+                    type: SpringLayout.type
+                },
+                events:{
+                    modeChanged:function (mode) {
+                        let controls = document.querySelector(".controls");
+                        surface.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
+                        surface.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
+                    },
+                    canvasClick:() => {
+                        toolkit.clearSelection();
+                        edgeEditor.stopEditing();
+                    }
+                },
+                consumeRightClick: false,
+                dragOptions: {
+                    filter: ".jtk-draw-handle, .node-action, .node-action i"
+                },
+                zoomToFit:true,
+                plugins: [
+                    DrawingToolsPlugin.type,
+                    {
+                        type:LassoPlugin.type,
+                        options:{
+                            invert:true
+                        }
+                    }
+                ],
+                grid:{
+                    size:{
+                        w:20,
+                        h:20
+                    }
+                },
+                magnetize:{
+                    afterDrag:true
+                }
             },
             view:{
                 nodes: {
@@ -105,7 +135,9 @@ export default {
                     },
                     "selectable": {
                         events: {
-                            tap: (params) => params.toolkit.toggleSelection(params.node)
+                            tap: (params) => {
+                                params.toolkit.toggleSelection(params.obj)
+                            }
                         }
                     },
                     "question": {
@@ -127,15 +159,15 @@ export default {
                     "default": {
                         anchor:"AutoDefault",
                         endpoint:"Blank",
-                        connector: ["EditableFlowchart", { cornerRadius: 5 } ],
+                        connector: {type:"Orthogonal", options:{ cornerRadius: 5 } },
                         paintStyle: { strokeWidth: 2, stroke: "rgb(132, 172, 179)", outlineWidth: 3, outlineStroke: "transparent" },	//	paint style for this edge type.
                         hoverPaintStyle: { strokeWidth: 2, stroke: "rgb(67,67,67)" }, // hover paint style for this edge type.
                         events: {
                             "click":(p) => {
-                                surface.startEditing(p.edge, {
+                                edgeEditor.startEditing(p.edge, {
                                     deleteButton:true,
                                     onMaybeDelete:(edge, connection, doDelete) => {
-                                        Dialogs.show({
+                                        dialogs.show({
                                             id: "dlgConfirm",
                                             data: {
                                                 msg: "Delete Edge"
@@ -147,20 +179,25 @@ export default {
                             }
                         },
                         overlays: [
-                            [ "Arrow", { location: 1, width: 10, length: 10 }]
+                            { type:"Arrow", options:{ location: 1, width: 10, length: 10 } }
                         ]
                     },
-                    "connection":{
+                    "response":{
                         parent:"default",
                         overlays:[
-                            [
-                                "Label", {
+                            {
+                                type: "Label",
+                                options: {
                                     label: "${label}",
-                                    events:{
-                                        click:editEdge
+                                    events: {
+                                        click: (p) => {
+                                            showEdgeEditDialog(p.edge.data, (data) => {
+                                                toolkit.updateEdge(p.edge, data);
+                                            }, () => null)
+                                        }
                                     }
                                 }
-                            ]
+                            }
                         ]
                     }
                 },
@@ -171,18 +208,43 @@ export default {
                     },
                     "source": {
                         maxConnections: -1,
-                        edgeType: "connection"
+                        edgeType: "response"
                     },
                     "target": {
                         maxConnections: -1,
-                        isTarget: true,
-                        dropOptions: {
-                            hoverClass: "connection-drop"
-                        }
+                        isTarget: true
                     }
                 }
             }
         };
+    },
+
+    methods:{
+        editNode:function(node) {
+            dialogs.show({
+                id: "dlgText",
+                data: node.data,
+                title: "Edit " + node.data.type + " name",
+                onOK: (data) => {
+                    if (data.text && data.text.length > 2) {
+                        // if name is at least 2 chars long, update the underlying data and
+                        // update the UI.
+                        toolkit.updateNode(node, data);
+                    }
+                }
+            });
+        },
+        maybeDelete:function(node) {
+            dialogs.show({
+                id: "dlgConfirm",
+                data: {
+                    msg: "Delete '" + node.data.text + "'"
+                },
+                onOK:() => {
+                    toolkit.removeNode(node);
+                }
+            });
+        }
     },
 
     mounted() {
@@ -190,12 +252,32 @@ export default {
         toolkitComponent = this.$refs.toolkitComponent;
         toolkit = toolkitComponent.toolkit;
 
-        jsPlumbToolkitVue2.getSurface(this.surfaceId, (s) => {
-            surface = s;
-            new DrawingTools({
-                renderer: s
-            });
+        dialogs = Dialogs.newInstance({
+            dialogs: {
+                "dlgText": {
+                    template:'<input type="text" size="50" jtk-focus jtk-att="text" value="${text}" jtk-commit="true"/>',
+                    title:'Enter Text',
+                    cancelable:true
+
+                },
+                "dlgConfirm": {
+                    template:'${msg}',
+                    title:'Please Confirm',
+                    cancelable:true
+                },
+                "dlgMessage": {
+                    template:'${msg}',
+                    title:"Message",
+                    cancelable:false
+                }
+            }
         });
+
+        getSurface(this.surfaceId, (s) => {
+            surface = s;
+            edgeEditor = ConnectorEditors.newInstance(s)
+        });
+
     }
 
 }
