@@ -1,57 +1,57 @@
 {
-  "name": "jsplumbtoolkit-vue2-flowchart-builder",
-  "version": "5.8.0",
-  "description": "",
-  "main": "index.js",
-  "author": "jsPlumb <hello@jsplumbtoolkit.com> (https://jsplumbtoolkit.com)",
-  "license": "Commercial",
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
-  "dependencies": {
-    "@jsplumbtoolkit/browser-ui-plugin-drawing-tools": "^5.8.0",
-    "@jsplumbtoolkit/browser-ui-plugin-lasso": "^5.8.0",
-    "@jsplumbtoolkit/browser-ui-plugin-miniview": "^5.8.0",
-    "@jsplumbtoolkit/browser-ui-vue2": "^5.8.0",
-    "@jsplumbtoolkit/browser-ui-vue2-drop": "^5.8.0",
-    "@jsplumbtoolkit/connector-editors-orthogonal": "^5.8.0",
-    "@jsplumbtoolkit/dialogs": "^5.8.0",
-    "@jsplumbtoolkit/layout-spring": "^5.8.0",
-    "vue": "2.5.17"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "3.1.1",
-    "@vue/cli-plugin-eslint": "3.1.5",
-    "@vue/cli-service": "3.1.4",
-    "babel-eslint": "10.0.1",
-    "eslint": "5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
-    "vue-template-compiler": "2.5.17"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
+    "name": "jsplumbtoolkit-vue2-flowchart-builder",
+    "version": "5.8.0",
+    "description": "",
+    "main": "index.js",
+    "author": "jsPlumb <hello@jsplumbtoolkit.com> (https://jsplumbtoolkit.com)",
+    "license": "Commercial",
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint"
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "dependencies": {
+        "@jsplumbtoolkit/browser-ui-plugin-drawing-tools": "^5.9.0",
+        "@jsplumbtoolkit/browser-ui-plugin-lasso": "^5.9.0",
+        "@jsplumbtoolkit/browser-ui-plugin-miniview": "^5.9.0",
+        "@jsplumbtoolkit/browser-ui-vue2": "^5.9.0",
+        "@jsplumbtoolkit/browser-ui-vue2-drop": "^5.9.0",
+        "@jsplumbtoolkit/connector-editors-orthogonal": "^5.9.0",
+        "@jsplumbtoolkit/dialogs": "^5.9.0",
+        "@jsplumbtoolkit/layout-spring": "^5.9.0",
+        "vue": "2.5.17"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "3.1.1",
+        "@vue/cli-plugin-eslint": "3.1.5",
+        "@vue/cli-service": "3.1.4",
+        "babel-eslint": "10.0.1",
+        "eslint": "5.8.0",
+        "eslint-plugin-vue": "^5.0.0-0",
+        "vue-template-compiler": "2.5.17"
+    },
+    "eslintConfig": {
+        "root": true,
+        "env": {
+            "node": true
+        },
+        "extends": [
+            "plugin:vue/essential",
+            "eslint:recommended"
+        ],
+        "rules": {},
+        "parserOptions": {
+            "parser": "babel-eslint"
+        }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 8"
+    ]
 }
