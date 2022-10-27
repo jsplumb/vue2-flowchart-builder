@@ -11,7 +11,7 @@
 
 <script>
 
-    import { getSurface } from "@jsplumbtoolkit/browser-ui-vue2";
+    import { getSurface, SurfaceMode } from "@jsplumbtoolkit/browser-ui-vue2";
     import { EVENT_CANVAS_CLICK } from "@jsplumbtoolkit/browser-ui"
     import { EVENT_UNDOREDO_UPDATE } from "@jsplumbtoolkit/core"
 
@@ -28,13 +28,13 @@
         props:["surfaceId"],
         methods:{
             panMode:function() {
-                _getSurface((s) => s.setMode("pan"))
+                _getSurface((s) => s.setMode(SurfaceMode.PAN))
             },
             selectMode:function() {
-                _getSurface((s) => s.setMode("select"))
+                _getSurface((s) => s.setMode(SurfaceMode.SELECT))
             },
             zoomToFit:function() {
-                _getSurface((s) => s.zoomToFit());
+                _getSurface((s) => s.zoomToFit())
             },
             undo:function() {
                 _getSurface((s) => s.toolkitInstance.undo())
