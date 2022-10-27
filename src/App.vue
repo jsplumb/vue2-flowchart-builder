@@ -2,7 +2,6 @@
   <div id="app">
     <div class="jtk-demo-main" id="jtk-demo-flowchart">
 
-
         <div id="canvas" class="jtk-demo-canvas">
           <Controls surface-id="surface"></Controls>
           <Flowchart surface-id="surface"></Flowchart>
