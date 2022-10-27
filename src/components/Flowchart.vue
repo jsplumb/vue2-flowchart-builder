@@ -7,22 +7,24 @@
 
 <script>
 
+    // jsplumb imports
 import * as Dialogs from "@jsplumbtoolkit/dialogs"
 import { getSurface } from '@jsplumbtoolkit/browser-ui-vue2'
 import { uuid } from "@jsplumbtoolkit/core"
-import { SpringLayout } from "@jsplumbtoolkit/layout-spring"
+import { ForceDirectedLayout } from "@jsplumbtoolkit/layout-force-directed"
 
 import { LassoPlugin } from "@jsplumbtoolkit/browser-ui-plugin-lasso"
 import { DrawingToolsPlugin } from "@jsplumbtoolkit/browser-ui-plugin-drawing-tools"
+import { newInstance as newConnectorEditors } from "@jsplumbtoolkit/connector-editors"
 
 //
-// when not using Typescript, and not accessing something inside these modules, it is necessary to import them like this
-// in order for them to register themselves with the Toolkit
+// you need to initialize the orthogonal connector editor to avoid it being ignored
+// by a tree shaker
 //
-import * as ConnectorEditors from "@jsplumbtoolkit/connector-editors"
-import * as OrthogonalConnector from "@jsplumbtoolkit/connector-orthogonal"
 import * as OrthogonalConnectorEditors from "@jsplumbtoolkit/connector-editors-orthogonal"
+OrthogonalConnectorEditors.initialize()
 
+// local imports
 import StartNode from './StartNode.vue'
 import ActionNode from './ActionNode.vue'
 import QuestionNode from './QuestionNode.vue'
@@ -91,7 +93,7 @@ export default {
             },
             renderParams:{
                 layout:{
-                    type: SpringLayout.type
+                    type: ForceDirectedLayout.type
                 },
                 events:{
                     modeChanged:function (mode) {
@@ -275,7 +277,7 @@ export default {
 
         getSurface(this.surfaceId, (s) => {
             surface = s;
-            edgeEditor = ConnectorEditors.newInstance(s)
+            edgeEditor = newConnectorEditors(s)
         });
 
     }
