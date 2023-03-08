@@ -9,6 +9,15 @@
         <div class="node-edit node-action" v-on:click="edit"></div>
         <div class="node-delete node-action delete" v-on:click="maybeDelete"></div>
         <div class="drag-start connect" data-jtk-source="true" data-jtk-port-type="source"></div>
+
+        <!--
+            add a second drag point, from which edges will be of type 'exampleAlternate', via the port mapping
+            for ports of type 'alternate', in the view declared in Flowchart.vue
+        -->
+        <div style="position:absolute;right:20px;top:20px;width:15px;height:15px;background-color:darkcyan;cursor:pointer;"
+             data-jtk-source="true"
+             data-jtk-port-type="alternate"></div>
+
     </div>
 </template>
 

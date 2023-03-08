@@ -158,6 +158,9 @@ export default {
                 // There are two edge types defined - 'yes' and 'no', sharing a common
                 // parent.
                 edges: {
+                    //
+                    // SP: the 'default' edge type is what is applied to any edge for which a specific type
+                    // cannot be determined.
                     "default": {
                         anchor:"AutoDefault",
                         endpoint:"Blank",
@@ -201,6 +204,25 @@ export default {
                                 }
                             }
                         ]
+                    },
+                    // an example of some other edge type
+                    "exampleAlternate":{
+                        connector: "Straight",
+                        paintStyle: { strokeWidth: 4, stroke: "pink"},	//	paint style for this edge type.
+                        overlays:[
+                            {
+                                type:"Label",
+                                options:{
+                                    location:0.25,
+                                    label:"Alternate Type"
+                                }
+                            }
+                        ],
+                        events:{
+                            click:(p) => {
+                                alert("You have clicked on an alternate edge")
+                            }
+                        }
                     }
                 },
 
@@ -215,6 +237,10 @@ export default {
                     "target": {
                         maxConnections: -1,
                         isTarget: true
+                    },
+                    // some other port type
+                    "alternate":{
+                        edgeType:"exampleAlternate"
                     }
                 }
             }

@@ -89,6 +89,24 @@
       "top": 600,
       "w": 280,
       "h": 160
+    },
+    {
+      "id": "11",
+      "type": "action",
+      "text": "Example for new edge type",
+      "left": -160,
+      "top": 800,
+      "w": 280,
+      "h": 160
+    },
+    {
+      "id": "12",
+      "type": "output",
+      "text": "Example 2 for new edge type",
+      "left": 360,
+      "top": 800,
+      "w": 280,
+      "h": 160
     }
   ],
   "edges": [
@@ -393,6 +411,13 @@
           "ox": 1,
           "oy": 0
         }
+      }
+    },
+    {
+      "source": "11",
+      "target": "12",
+      "data": {
+        "type": "exampleAlternate"
       }
     }
   ]
