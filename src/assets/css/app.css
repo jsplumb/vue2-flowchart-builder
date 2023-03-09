@@ -189,3 +189,13 @@ svg.jtk-drag-drop-hover path {
     content:"✖"
 }
 
+
+/*
+Styles for a placeholder node - a dummy node that will represent the target of an edge whose target is an edge.
+ */
+.placeholder-node {
+    width:10px;
+    height:10px;
+    outline:1px solid;
+    opacity:0;
+}

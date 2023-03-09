@@ -13,6 +13,8 @@ import { getSurface } from '@jsplumbtoolkit/browser-ui-vue2'
 import { uuid } from "@jsplumbtoolkit/core"
 import { ForceDirectedLayout } from "@jsplumbtoolkit/layout-force-directed"
 
+    import { EVENT_DATA_LOAD_END } from "@jsplumbtoolkit/core"
+
 import { LassoPlugin } from "@jsplumbtoolkit/browser-ui-plugin-lasso"
 import { DrawingToolsPlugin } from "@jsplumbtoolkit/browser-ui-plugin-drawing-tools"
 import { newInstance as newConnectorEditors } from "@jsplumbtoolkit/connector-editors"
@@ -29,6 +31,12 @@ import StartNode from './StartNode.vue'
 import ActionNode from './ActionNode.vue'
 import QuestionNode from './QuestionNode.vue'
 import OutputNode from './OutputNode.vue'
+
+/*
+  connect nodes to edges
+ */
+import PlaceholderNode from './PlaceholderNode'
+import { EdgeConnector } from '../edge-connector'
 
 let toolkitComponent
 let toolkit
@@ -153,6 +161,9 @@ export default {
                     "output":{
                         parent:"selectable",
                         component:OutputNode
+                    },
+                    "placeholder":{
+                        component:PlaceholderNode
                     }
                 },
                 // There are two edge types defined - 'yes' and 'no', sharing a common
@@ -304,6 +315,14 @@ export default {
         getSurface(this.surfaceId, (s) => {
             surface = s;
             edgeEditor = newConnectorEditors(s)
+
+            surface.toolkitInstance.bind(EVENT_DATA_LOAD_END, () => {
+                const edgeConnector = new EdgeConnector(surface)
+                edgeConnector.connectToEdge("11", "exampleTargetEdge", 0.25)
+                edgeConnector.connectToEdge("11", "exampleTargetEdge", 0.75)
+            })
+
+
         });
 
     }

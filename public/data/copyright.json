@@ -333,8 +333,10 @@
       "source": "9",
       "target": "1",
       "data": {
+        "id": "exampleTargetEdge",
         "label": "no",
         "type": "response"
+
       },
       "geometry": {
         "segments": [
