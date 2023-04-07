@@ -181,10 +181,12 @@ export class EdgeConnector {
                 this._addEdge(vertex, edge, locationOnEdge)
 
             } else {
+                // eslint-disable-next-line
                 console.log(`Cannot find vertex with id ${sourceVertexId}`)
             }
 
         } else {
+            // eslint-disable-next-line
             console.log(`Cannot find edge with id ${edgeId}`)
         }
 
