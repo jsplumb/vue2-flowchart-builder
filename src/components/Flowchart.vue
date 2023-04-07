@@ -1,6 +1,6 @@
 <template>
     <div style="width: 100%;height: 100%;position: relative;">
-    <jsplumb-toolkit ref="toolkitComponent" url="data/copyright.json" v-bind:render-params="renderParams" v-bind:view="view" id="toolkit" surface-id="surface" v-bind:toolkit-params="toolkitParams"></jsplumb-toolkit>
+    <jsplumb-toolkit ref="toolkitComponent" url="data/anchor-example.json" v-bind:render-params="renderParams" v-bind:view="view" id="toolkit" surface-id="surface" v-bind:toolkit-params="toolkitParams"></jsplumb-toolkit>
     <jsplumb-miniview surface-id="surface"></jsplumb-miniview>
     </div>
 </template>
@@ -173,8 +173,8 @@ export default {
                     // SP: the 'default' edge type is what is applied to any edge for which a specific type
                     // cannot be determined.
                     "default": {
-                        anchor:"AutoDefault",
-                        endpoint:"Blank",
+                        // anchor:"AutoDefault",
+                        // endpoint:"Blank",
                         connector: {type:"Orthogonal", options:{ cornerRadius: 5 } },
                         paintStyle: { strokeWidth: 2, stroke: "rgb(132, 172, 179)", outlineWidth: 3, outlineStroke: "transparent" },	//	paint style for this edge type.
                         hoverPaintStyle: { strokeWidth: 2, stroke: "rgb(67,67,67)" }, // hover paint style for this edge type.
@@ -316,11 +316,11 @@ export default {
             surface = s;
             edgeEditor = newConnectorEditors(s)
 
-            surface.toolkitInstance.bind(EVENT_DATA_LOAD_END, () => {
-                const edgeConnector = new EdgeConnector(surface)
-                edgeConnector.connectToEdge("11", "exampleTargetEdge", 0.25)
-                edgeConnector.connectToEdge("11", "exampleTargetEdge", 0.75)
-            })
+            // surface.toolkitInstance.bind(EVENT_DATA_LOAD_END, () => {
+            //     const edgeConnector = new EdgeConnector(surface)
+            //     edgeConnector.connectToEdge("11", "exampleTargetEdge", 0.25)
+            //     edgeConnector.connectToEdge("11", "exampleTargetEdge", 0.75)
+            // })
 
 
         });
