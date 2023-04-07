@@ -18,6 +18,12 @@
              data-jtk-source="true"
              data-jtk-port-type="alternate"></div>
 
+             <h1 v-bind:key="a.portId" v-for="a in obj.anchors">{{a.ox}}</h1>
+             <jtk-endpoint v-bind:key="a.portId" v-for="a in obj.anchors" :data-jtk-anchor-x="a.x" :data-jtk-anchor-y="a.y" :data-jtk-orientation-x="a.ox" :data-jtk-orientation-y="a.oy" :data-jtk-port="a.portId" data-jtk-source="true" data-jtk-target="true"></jtk-endpoint>
+
+
+        
+
     </div>
 </template>
 
